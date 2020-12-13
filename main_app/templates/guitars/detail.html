@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card m-4 border shadow p-3 bg-white rounded">
+	<div class="card-body">
+		<h2>{{guitar.brand}} {{guitar.model}}</h2>
+		<p>Type: {{guitar.guitar_type}}</p>
+		<p class="mt-n2">Price: ${{guitar.price}}</p>
+		<p class="mt-n2">Description: {{guitar.description}}</p>
+	</div>
+	<button
+		class="btn btn-secondary dropdown-toggle position-absolute float-right"
+		type="button"
+		id="dropdownMenu2"
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="false"
+		style="right: 10px"
+	></button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+		<a href="">
+			<button class="dropdown-item" type="button">Edit</button>
+		</a>
+		<button class="dropdown-item" type="button">Delete</button>
+	</div>
+</div>
+{% endblock content %}

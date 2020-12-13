@@ -5,4 +5,5 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('guitars', views.index, name="index"),
     path('guitars/create/', views.CreateGuitar.as_view(), name="create"),
+    path('guitars/<int:guitar_id>/', views.detail, name="detail")
 ]
