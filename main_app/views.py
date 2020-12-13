@@ -11,4 +11,5 @@ def home(request):
     return render(request, 'home.html')
 
 def index(request):
-    return render(request, 'home.html')
+    guitars = Guitar.objects.all()
+    return render(request, 'guitars/index.html', {'guitars': guitars})

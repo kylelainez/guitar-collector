@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %} {% for guitar in guitars %}
+<div class="card m-4">
+	<div class="card-body">
+		<p class="font-weight-bold">{{guitar.brand}} {{guitar.model}}</p>
+		<p class="font-weight-normal">{{guitar.guitar_type}}</p>
+		<p class="font-weight-bold">${{guitar.price}}</p>
+		<p class="font-weight-normal">{{guitar.description}}</p>
+	</div>
+</div>
+{% endfor %} {% endblock content %}
