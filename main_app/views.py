@@ -7,6 +7,14 @@ class CreateGuitar(CreateView):
     model = Guitar
     fields = '__all__'
 
+class UpdateGuitar(UpdateView):
+    model = Guitar
+    fields = '__all__'
+
+class DeleteGuitar(DeleteView):
+    model = Guitar
+    success_url = '/guitars/'
+
 def home(request):
     return render(request, 'home.html')
 

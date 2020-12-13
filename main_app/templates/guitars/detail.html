@@ -16,10 +16,12 @@
 		style="right: 10px"
 	></button>
 	<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-		<a href="">
+		<a href="{% url 'update' guitar.id %}">
 			<button class="dropdown-item" type="button">Edit</button>
 		</a>
-		<button class="dropdown-item" type="button">Delete</button>
+		<a href="{% url 'delete' guitar.id%}">
+			<button class="dropdown-item" type="button">Delete</button>
+		</a>
 	</div>
 </div>
 {% endblock content %}
