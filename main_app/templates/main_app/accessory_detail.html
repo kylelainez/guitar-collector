@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="m-4">Accessory Details</h1>
+<div class="card m-4 border shadow p-3 bg-white rounded">
+	<div class="card-body">
+		<h2>{{accessory.name}}</h2>
+		<p>Color: {{accessory.color}}</p>
+		<p class="mt-n2">Details: {{accessory.details}}</p>
+	</div>
+	<button
+		class="btn btn-secondary dropdown-toggle position-absolute float-right"
+		type="button"
+		id="dropdownMenu2"
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="false"
+		style="right: 10px"
+	></button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+		<a href="{% url 'accessory_update' accessory.id %}">
+			<button class="dropdown-item" type="button">Edit</button>
+		</a>
+		<a href="{% url 'accessory_delete' accessory.id%}">
+			<button class="dropdown-item" type="button">Delete</button>
+		</a>
+	</div>
+</div>
+
+{% endblock content%}

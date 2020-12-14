@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<h1 class="m-4">Accessory List</h1>
+{% for accessory in accessory_list%}
+<div class="card m-4 border shadow p-3 bg-white rounded">
+	<div class="card-body">
+		<p class="font-weight-bold">
+			<span class="font-weight-normal">Accessory: </span
+			>{{accessory.name}} {{guitar.model}}
+		</p>
+		<p class="font-weight-normal">Color: {{accessory.color}}</p>
+		<a
+			href="{% url 'accessory_detail' accessory.id %}"
+			class="stretched-link"
+		></a>
+	</div>
+</div>
+{% endfor %} {% endblock content %}

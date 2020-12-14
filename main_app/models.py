@@ -3,6 +3,18 @@ from django.urls import reverse
 from datetime import date
 # Create your models here.
 
+class Accessory(models.Model):
+    name = models.CharField(max_length=50)
+    color = models.CharField(max_length=20)
+    details = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("accessory_detail", kwargs={"pk": self.id})
+    
+
 class Guitar(models.Model):
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)

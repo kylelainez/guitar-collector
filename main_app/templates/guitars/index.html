@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %} {% for guitar in guitars %}
+{% extends 'base.html' %} {% block content %}
+<h1 class="m-4">Guitar List</h1>
+{% for guitar in guitars %}
 <div class="card m-4 border shadow p-3 bg-white rounded">
 	<div class="card-body">
 		<p class="font-weight-bold">

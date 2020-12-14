@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Guitar
+from django.views.generic import ListView, DetailView
+from .models import Guitar, Accessory
 from .forms import MaintenanceForm
+
 # Create your views here.
 class CreateGuitar(CreateView):
     model = Guitar
@@ -36,3 +38,21 @@ def add_maintenance(request, guitar_id):
         new_maintenance.guitar_id = guitar_id
         new_maintenance.save()
     return redirect('detail', guitar_id = guitar_id)
+
+class AccessoriesList(ListView):
+    model = Accessory
+
+class AccessoriesDetail(DetailView):
+    model = Accessory
+
+class AccessoriesCreate(CreateView):
+    model = Accessory
+    fields = '__all__'
+
+class AccessoriesUpdate(UpdateView):
+    model = Accessory
+    fields = '__all__'
+
+class AccessoriesDelete(DeleteView):
+    model = Accessory
+    success_url = '/accessories/'
