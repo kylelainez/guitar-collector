@@ -1,4 +1,16 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js"
+	type="text/javascript"
+></script>
+<link
+	href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css"
+	rel="stylesheet"
+	type="text/css"
+/>
+{% endblock head %} {% block content %}
+<h1 class="m-4">Guitar Details</h1>
 <div class="card m-4 border shadow p-3 bg-white rounded">
 	<div class="card-body">
 		<h2>{{guitar.brand}} {{guitar.model}}</h2>
@@ -24,4 +36,55 @@
 		</a>
 	</div>
 </div>
-{% endblock content %}
+
+<div class="card m-4 border shadow p-3 bg-white rounded">
+	<div class="card-body container">
+		<h2 class="bp-3">Maintenance Schedules:</h2>
+		<div class="row py-2">
+			<div class="col-xl-5 col-md-6 col-12">
+				<form
+					action="{% url 'add_maintenance' guitar.id %}"
+					method="post"
+					autocomplete="off"
+				>
+					{% csrf_token %} {{maintenance_form|crispy}}
+					<input type="submit" value="Add!" class="btn btn-primary" />
+				</form>
+			</div>
+		</div>
+
+		{% if guitar.maintenance_set.count > 0 %}
+		<hr />
+		{% if guitar.future_maintenance_scheduled == False %}
+		<div class="row py-2">
+			<strong class="col-12"> No future maintenance scheduled! </strong>
+		</div>
+		<hr />
+		{% endif %}
+		<div class="row">
+			{% for maintenance in guitar.maintenance_set.all %}
+			<!--  comment -->
+			{% if maintenance.date < guitar.get_current_date %}
+			<span class="col-12" style="color: red">
+				{{maintenance.date}}
+				<hr />
+			</span>
+			{% else %}
+			<span class="col-12">
+				{{maintenance.date}}
+				<hr />
+			</span>
+			{% endif %} {% endfor %}
+		</div>
+		{% else %}
+		<div>No Maintenance Schedules Yet!</div>
+		{% endif %}
+	</div>
+	<script>
+		$('#id_date').datepicker({
+			format: 'mm/dd/yyyy'
+		});
+		console.log($('#id_date').datepicker);
+	</script>
+	{% endblock content %}
+</div>

@@ -8,7 +8,7 @@
 		<form action="" method="POST">
 			{% csrf_token %}
 			<input type="submit" value="Confirm" class="btn btn-primary mr-2" />
-			<a href="{% url 'detail' guitar.id%}">Cancel</a>
+			<a href="{% url 'detail' guitar.id%}" class="btn">Cancel</a>
 		</form>
 	</div>
 </div>

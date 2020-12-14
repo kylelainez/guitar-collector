@@ -37,6 +37,7 @@
 			name="viewport"
 			content="width=device-width, initial-scale=1, shrink-to-fit=no"
 		/>
+		{% block head %} {% endblock head %}
 	</head>
 	<body>
 		<header>
@@ -74,7 +75,7 @@
 				</div>
 			</nav>
 		</header>
-		<main class="container">
+		<main class="container pb-4">
 			{% block content %} {% endblock content %}
 		</main>
 		<footer class="font-small fixed-bottom navbar-dark bg-primary">

@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from datetime import date
 # Create your models here.
 
 class Guitar(models.Model):
@@ -14,5 +14,24 @@ class Guitar(models.Model):
         return f'{self.brand} {self.model}'
 
     def get_absolute_url(self):
-        return reverse("home", kwargs={"guitar_id": self.id})
+        return reverse("detail", kwargs={"guitar_id": self.id})
     
+    def future_maintenance_scheduled(self):
+        count = 0
+        for maintenance in self.maintenance_set.all():
+            if maintenance.date > date.today():
+                count += 1
+        return count > 0
+    
+    def get_current_date(self):
+        return date.today()
+
+class Maintenance(models.Model):
+    date = models.DateField('maintenance date')
+    guitar = models.ForeignKey(Guitar, on_delete=models.CASCADE)
+
+    def __str__ (self):
+        return f'Maintenance Schedule on {self.date}'
+
+    class Meta:
+        ordering = ['date']

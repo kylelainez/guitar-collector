@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Guitar
-
+from .forms import MaintenanceForm
 # Create your views here.
 class CreateGuitar(CreateView):
     model = Guitar
@@ -24,4 +24,15 @@ def index(request):
 
 def detail(request, guitar_id):
     guitar = Guitar.objects.get(id=guitar_id)
-    return render(request, 'guitars/detail.html', {'guitar': guitar})
+    maintenance_form = MaintenanceForm()
+    return render(request, 'guitars/detail.html', {
+        'guitar': guitar,
+        'maintenance_form': maintenance_form
+        })
+def add_maintenance(request, guitar_id):
+    form = MaintenanceForm(request.POST)
+    if form.is_valid():
+        new_maintenance = form.save(commit=False)
+        new_maintenance.guitar_id = guitar_id
+        new_maintenance.save()
+    return redirect('detail', guitar_id = guitar_id)
