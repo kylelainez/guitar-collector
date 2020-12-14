@@ -21,6 +21,7 @@ class Guitar(models.Model):
     guitar_type = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.CharField(max_length=250)
+    accessories = models.ManyToManyField(Accessory)
 
     def __str__(self):
         return f'{self.brand} {self.model}'

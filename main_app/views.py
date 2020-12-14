@@ -7,11 +7,11 @@ from .forms import MaintenanceForm
 # Create your views here.
 class CreateGuitar(CreateView):
     model = Guitar
-    fields = '__all__'
+    fields = ['brand', 'model', 'guitar_type', 'price', 'description']
 
 class UpdateGuitar(UpdateView):
     model = Guitar
-    fields = '__all__'
+    fields = ['brand', 'model', 'guitar_type', 'price', 'description']
 
 class DeleteGuitar(DeleteView):
     model = Guitar
@@ -26,11 +26,14 @@ def index(request):
 
 def detail(request, guitar_id):
     guitar = Guitar.objects.get(id=guitar_id)
+    accessory_nin_guitar = Accessory.objects.exclude(id__in = guitar.accessories.all().values_list('id'))
     maintenance_form = MaintenanceForm()
     return render(request, 'guitars/detail.html', {
         'guitar': guitar,
-        'maintenance_form': maintenance_form
+        'maintenance_form': maintenance_form,
+        'accessories': accessory_nin_guitar
         })
+        
 def add_maintenance(request, guitar_id):
     form = MaintenanceForm(request.POST)
     if form.is_valid():
@@ -38,6 +41,15 @@ def add_maintenance(request, guitar_id):
         new_maintenance.guitar_id = guitar_id
         new_maintenance.save()
     return redirect('detail', guitar_id = guitar_id)
+
+def add_accessory(request, guitar_id):
+    Guitar.objects.get(id=guitar_id).accessories.add(request.POST['accessories'])
+    return redirect('detail', guitar_id=guitar_id)
+
+def remove_accessory(request, guitar_id, accessory_id):
+    Guitar.objects.get(id=guitar_id).accessories.remove(accessory_id)
+    return redirect('detail', guitar_id=guitar_id)
+
 
 class AccessoriesList(ListView):
     model = Accessory
